@@ -37,14 +37,14 @@ class App extends Component {
     });
   };
 
-  handleRemove = id => {
+  handleRemove = (id) => {
     const { information } = this.state;
     this.setState({
       information: information.filter(info => info.id != id)
     });
   };
 
-  handleCreate = data => {
+  handleCreate = (data) => {
     const { information } = this.state;
     this.setState({
       information: information.concat({ id: this.id++, ...data })
@@ -53,6 +53,9 @@ class App extends Component {
 
   render() {
     const {information, keyword } = this.state;
+    const filteredList = information.filter(
+      info => info.name.indexOf(keyword) !== -1
+    );
     return (
       <div>
         <PhoneForm onCreate={this.handleCreate} />
@@ -61,7 +64,7 @@ class App extends Component {
           onChange={this.handleChange} value={keyword}/>
         </p>
         <PhoneInfoList
-          data={information}
+          data={filteredList}
           onRemove={this.handleRemove}
           onUpdate={this.handleUpdate}
         />
